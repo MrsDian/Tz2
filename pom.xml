@@ -22,4 +22,21 @@
         </dependency>
     </dependencies>
 
+<build>
+        <testResources>
+            <testResource>
+                <directory>src/{твой путь до тестов}</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.2</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>
