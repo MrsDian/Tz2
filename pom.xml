@@ -25,7 +25,7 @@
 <build>
         <testResources>
             <testResource>
-                <directory>src/{твой путь до тестов}</directory>
+                <directory>src/test/java</directory>
                 <excludes>
                     <exclude>**/*.java</exclude>
                 </excludes>
