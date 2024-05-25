@@ -1,4 +1,4 @@
-name: Test
+name: Tests
 
 on:
   push:
@@ -11,11 +11,10 @@ on:
         default:
         type: choice
         options:
-          
-_min
-_max
-_sum
-_mult
+          - _min
+          - _max
+          - _sum
+          - _mult
 
 jobs:
   testing:
@@ -23,29 +22,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      
-uses: actions/checkout@v1
-name: Set up JDK 21.0.2
-    uses: actions/setup-java@v1
-    with:
-      java-version: '21.0.2'
-      cache: maven
-name: Build with Maven
-  run: mvn -B package --file pom.xml -DskipTests
+      - uses: actions/checkout@v1
+      - name: Set up JDK 21.0.2
+        uses: actions/setup-java@v1
+        with:
+          java-version: '21.0.2'
+          cache: maven
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml -DskipTests
 
-      
-name: Test _min
-      if: "github.event.inputs.deployment_target == '_min'"
-      run: mvn clean test -Dtest=org.example.TestMin
-name: Test _max
-    if: "github.event.inputs.deployment_target == '_max'"
-    run: mvn clean test -Dtest=org.example.TestMax
-name: Test _sum
-  if: "github.event.inputs.deployment_target == '_sum'"
-  run: mvn clean test -Dtest=org.example.TestSum
-name: Test _mult
-if: "github.event.inputs.deployment_target == '_mult'"
-run: mvn clean test -Dtest=org.example.TestMult
-name: AllTest
-if: github.event.inputs.deployment_target != '_min' && github.event.inputs.deployment_target != '_max' && github.event.inputs.deployment_target != '_sum' && github.event.inputs.deployment_target != '_mult'
-run: mvn clean test
+      - name: get_name 
+        run: mvn clean test -Dtest = 
