@@ -6,15 +6,15 @@ on:
   workflow_dispatch:
     inputs:
       deployment_target:
-        description: Выберите тест
+        description: Выберите тест, пожалуйста :)
         required: true
-        default:
+        default: 
         type: choice
         options:
-          - _min
-          - _max
-          - _sum
-          - _mult
+          - min
+          - max
+          - sum
+          - mult  
 
 jobs:
   testing:
@@ -32,4 +32,18 @@ jobs:
         run: mvn -B package --file pom.xml -DskipTests
 
       - name: get_name 
+        if: github.event.inputs.deployment_target != 'min' && github.event.inputs.deployment_target != 'max' 
+          && github.event.inputs.deployment_target != 'sum' && github.event.inputs.deployment_target != 'mult'
+        run: mvn clean test -Dtest=NumberProcessorTests 
+      - name: minTest 
+        if: github.event.inputs.deployment_target == 'min'
         run: mvn clean test -Dtest=NumberProcessorTests#testMin
+      - name: maxTest 
+        if: github.event.inputs.deployment_target == 'max'
+        run: mvn clean test -Dtest=NumberProcessorTests#testMax
+      - name: sumTest 
+        if: github.event.inputs.deployment_target == 'sum'
+        run: mvn clean test -Dtest=NumberProcessorTests#testSum
+      - name: multTest 
+        if: github.event.inputs.deployment_target == 'mult'
+        run: mvn clean test -Dtest=NumberProcessorTests#testMult
